@@ -1,4 +1,4 @@
-import Main from "./components/kiosk";
+import Main from "./components/main";
 
 export default function Home() {
   return (
