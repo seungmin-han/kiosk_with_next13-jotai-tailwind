@@ -1,6 +1,6 @@
 import KioskLayout from "../layouts/kiostLayout"
 
-const screenClassName = 'text-center justify-between';
+const screenClassName: String = 'text-center justify-between';
 
 export default function Main() {
     return (
