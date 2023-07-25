@@ -14,14 +14,14 @@ export default function Menu() {
             <div id="menu-header" className="flex justify-between items-center px-[40px] h-12">
                 {
                     CATEGORY.map((v: Category) => {
-                        return <div className="">{v}</div>
+                        return <div className="" key={v}>{v}</div>
                     })
                 }
             </div>
             <div className="w-full flex flex-wrap self-center items-baseline">
             {
                 products.map((v: Product) => {
-                    return <div className="w-3/12 text-center p-4">
+                    return <div className="w-3/12 text-center p-4" key={v.code}>
                         <div className="flex flex-col items-center">
                             <div className="w-[120px] h-[120px] bg-slate-500"></div>
                             <div>{v.name}</div>
