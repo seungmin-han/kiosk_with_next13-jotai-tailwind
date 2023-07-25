@@ -1,12 +1,12 @@
-export interface Product {
-    name: String,
-    price: Number,
-    code: Number,
-    isSoldOut: Boolean,
-    sale?: Number,
-    isBest: Boolean,
-    isNewest: Boolean,
-    category: Category,
-}
+export type Category = `카테고리${number}`
 
-export type Category = '카테고리1' | '카테고리2' | '카테고리3'
+export interface Product {
+    name: string;
+    price: number;
+    code: number;
+    isSoldOut: boolean;
+    sale: number;
+    isBest: boolean;
+    isNewest: boolean;
+    category: Category;
+}
