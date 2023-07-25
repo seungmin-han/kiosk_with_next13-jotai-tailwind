@@ -1,7 +1,7 @@
 'use client'
 import KioskLayout from "../layouts/kiostLayout"
 import { useAtom } from 'jotai';
-import { Product, Category } from '@/types';
+import { Product, Category } from '@/app/types';
 import { productAtom } from '@/store/atoms';
 const screenClassName: String = '';
 
