@@ -11,6 +11,6 @@ export default function Modal({ children }: { children: React.ReactNode }) {
     }, [])
 
     return mounted
-        ? createPortal(<>{children}</>, document.querySelector('#portal') as HTMLSelectElement)
+        ? createPortal(<>{children}</>, document.querySelector('#screen') as HTMLSelectElement)
         : <></>;
 }
