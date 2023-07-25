@@ -5,6 +5,7 @@ import { Product, Category } from '@/app/types';
 import { productAtom } from '@/store/atoms';
 import { useEffect, useState } from "react";
 import Modal from "./modal";
+import Image from "next/image";
 const screenClassName: String = '';
 
 
@@ -64,7 +65,16 @@ export default function Menu() {
                         onClick={()=>toggleDetailView(v)}
                     >
                         <div className="flex flex-col items-center">
-                            <div className="w-[120px] h-[120px] bg-slate-500"></div>
+                            <div className="w-[120px] h-[120px] bg-slate-500">
+                                <Image
+                                    src={`/assets/image${v.code}.jpg`}
+                                    width={120}
+                                    height={120}
+                                    alt={`image${v.code}`}
+                                    loading="eager"
+                                >
+                                </Image>
+                            </div>
                             <div>{v.name}</div>
                             {
                                 v.sale ? <div><s>{ v.price }</s></div> : <></>
@@ -85,18 +95,66 @@ export default function Menu() {
                             <div
                                 className="bg-white w-full h-full rounded-lg flex flex-col justify-between overflow-hidden"
                                 onClick={(e) => e.stopPropagation()}
-                            >
+                            >   
+                            <div className="flex flex-col justify-between">
                                 <div
                                     className="self-end w-6 h-6 box-border text-center cursor-pointer"
                                     onClick={()=>{toggleDetailView()}}
                                 >X
                                 </div>
-                                <div>
-                                    {`${JSON.stringify(selectedProduct)}`}        
+                                <div className="flex flex-col p-6 overflow-y-auto">
+                                    <div className="flex justify-between">
+                                        <div>
+                                            hello
+                                        </div>
+                                        <Image
+                                            src={`/assets/image${selectedProduct?.code}.jpg`}
+                                            width={250}
+                                            height={250}
+                                            loading="eager"
+                                            alt={`image${selectedProduct?.code}`}
+                                        >
+                                        </Image>
+                                    </div>
+                                    <div id="option1" className="mt-8">
+                                        <h3>옵션1</h3>
+                                        <div className="flex justify-around">
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션1</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션2</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션3</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="option2" className="mt-8">
+                                        <h3>옵션2</h3>
+                                        <div className="flex justify-around">
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션1</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션2</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="" id="" />
+                                                <label htmlFor="">옵션3</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                                 <div className="flex">
-                                    <button className="w-1/2 bg-red-500 py-2 px-4 text-white font-bold">취소</button>
                                     <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold">장바구니 담기</button>
+                                    <button className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold">결제하기</button>
                                 </div>
                             </div>
                         </div>
