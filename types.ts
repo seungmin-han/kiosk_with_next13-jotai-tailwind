@@ -9,4 +9,12 @@ export interface Product {
     isBest: boolean;
     isNewest: boolean;
     category: Category;
+    options: ProductOption[];
 }
+
+export interface ProductOption {
+    optionName: string,
+    options: string[] 
+}
+
+// export interface 
