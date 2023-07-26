@@ -1,7 +1,28 @@
-import { ProductOption } from "@/types";
+'use client'
+import { Product, ProductOption } from "@/types";
+import { toast } from 'react-toastify';
 import Image from "next/image";
+import { useState } from "react";
 
-export default function detailView({close, selectedProduct, setCount, count}: any) {
+export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
+    const [count, setCount] = useState<number>(1);
+    const increase = () => {
+        setCount((prev: number) => {
+            return prev < 100 ? prev + 1 : prev
+        })
+    }
+    const decrease = () => {
+        setCount((prev: number) => {
+            if (prev == 1) {
+                toast.error('1 이하의 숫자는 선택할 수 없습니다.');
+            }
+            return prev == 1 ? prev : prev - 1
+        })
+    }
+    const addToCart = () => {
+
+    }
+
     return (
         <div
             className="absolute w-full h-full bg-opacity-30 bg-black left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center p-20"
@@ -61,17 +82,20 @@ export default function detailView({close, selectedProduct, setCount, count}: an
                         <span className="px-3 py-1.5 font-bold">수량</span>
                         <button
                             className="bg-red-600 px-3 py-1.5 text-white rounded-lg rounded-r-none"
-                            onClick={()=>setCount((prev:number)=>{return prev == 1 ? prev : prev-1})}
+                            onClick={()=>decrease()}
                         >-</button>
                         <span className="px-3 py-1.5 border-y-2"> {count} </span>
                         <button
                             className="bg-sky-600 px-3 py-1.5 text-white rounded-lg rounded-l-none"
-                            onClick={()=>setCount((prev:number)=>{return prev < 100 ? prev+1 : prev})}
+                            onClick={()=>increase()}
                         >+</button>
                     </div>
                     <div className="flex">
                         <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold">장바구니 담기</button>
-                        <button className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold">결제하기</button>
+                        <button
+                            className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold"
+                            onClick={()=> {toast('hello');}}
+                        >결제하기</button>
                     </div>
                 </div>
             </div>

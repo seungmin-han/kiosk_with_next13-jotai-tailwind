@@ -1,7 +1,7 @@
 'use client'
 import KioskLayout from "../layouts/kiostLayout"
 import { useAtom } from 'jotai';
-import { Product, Category, ProductOption } from '@/types';
+import { Product } from '@/types';
 import { productAtom } from '@/store/atoms';
 import { useEffect, useState } from "react";
 import Modal from "./modal";
@@ -16,7 +16,6 @@ export default function Menu() {
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [copiedProducts, setCopiedProducts] = useState<Product[]>(products.filter((v:Product)=> v.isNewest));
     const [selectedProduct, setSelectedProduct] = useState<Product>();
-    const [count, setCount] = useState<number>(1);
     const CATEGORY: string[] = ['신상품', '인기메뉴', '카테고리1', '카테고리2', '카테고리3'];
 
     const toggleDetailView = (product?: Product) => {
@@ -91,7 +90,7 @@ export default function Menu() {
                 showDetailModal
                     ?
                     <Modal>
-                        <DetailView close={toggleDetailView} selectedProduct={selectedProduct} count={count} setCount={setCount}/>
+                        <DetailView close={toggleDetailView} selectedProduct={selectedProduct}/>
                     </Modal>
                     : <></>
             } 
