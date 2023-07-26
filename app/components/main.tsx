@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import KioskLayout from "../layouts/kiostLayout"
 
-const screenClassName: String = 'text-center justify-between';
+const screenClassName: String = 'p-4 text-center justify-between';
 
 export default function Main() {
     const router = useRouter()
