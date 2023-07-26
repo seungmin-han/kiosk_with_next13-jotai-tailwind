@@ -1,11 +1,12 @@
 'use client'
 import KioskLayout from "../layouts/kiostLayout"
 import { useAtom } from 'jotai';
-import { Product, Category } from '@/types';
+import { Product, Category, ProductOption } from '@/types';
 import { productAtom } from '@/store/atoms';
 import { useEffect, useState } from "react";
 import Modal from "./modal";
 import Image from "next/image";
+import DetailView from '@/app/components/detailView';
 const screenClassName: String = '';
 
 
@@ -15,6 +16,7 @@ export default function Menu() {
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [copiedProducts, setCopiedProducts] = useState<Product[]>(products.filter((v:Product)=> v.isNewest));
     const [selectedProduct, setSelectedProduct] = useState<Product>();
+    const [count, setCount] = useState<number>(1);
     const CATEGORY: string[] = ['신상품', '인기메뉴', '카테고리1', '카테고리2', '카테고리3'];
 
     const toggleDetailView = (product?: Product) => {
@@ -87,88 +89,9 @@ export default function Menu() {
             </div>
             {
                 showDetailModal
-                    ? <Modal>
-                    <div
-                        className="absolute w-full h-full bg-opacity-30 bg-black left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center p-20"
-                        onClick={()=>{toggleDetailView()}}
-                    >
-                            <div
-                                className="bg-white w-full h-full rounded-lg flex flex-col justify-between overflow-hidden"
-                                onClick={(e) => e.stopPropagation()}
-                            >   
-                            <div className="flex flex-col justify-between">
-                                <div
-                                    className="self-end w-6 h-6 box-border text-center cursor-pointer"
-                                    onClick={()=>{toggleDetailView()}}
-                                >X
-                                </div>
-                                <div className="flex flex-col p-6 overflow-y-scroll max-h-[570px]">
-                                    <div className="flex justify-between">
-                                        <div className="flex flex-col justify-start items-center flex-grow">
-                                                <div className="mb-5 text-2xl">{ selectedProduct?.name }</div>
-                                                <div className="mb-5 text-xl">{selectedProduct?.price}</div>
-                                                <div>아이템 설명</div>
-                                        </div>
-                                        <Image
-                                            src={`/assets/image${selectedProduct?.code}.jpg`}
-                                            width={250}
-                                            height={250}
-                                            loading="eager"
-                                            alt={`image${selectedProduct?.code}`}
-                                        >
-                                        </Image>
-                                    </div>
-                                    <div id="option1" className="mt-8">
-                                        <h3 className="pl-4 pb-2 text-lg font-normal">옵션1</h3>
-                                        <div className="flex justify-around py-4 border-y-2">
-                                            <div>
-                                                <input type="radio" name="option1" id="" />
-                                                <label htmlFor="">옵션1</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="option1" id="" />
-                                                <label htmlFor="">옵션2</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="option1" id="" />
-                                                <label htmlFor="">옵션3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="option2" className="mt-8">
-                                        <h3>옵션2</h3>
-                                        <div className="flex justify-around">
-                                            <div>
-                                                <input type="radio" name="option2" id="" />
-                                                <label htmlFor="">옵션1</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="option2" id="" />
-                                                <label htmlFor="">옵션2</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="option2" id="" />
-                                                <label htmlFor="">옵션3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <div className="mb-4 flex justify-end pr-6">
-                                        <span className="px-3 py-1.5 font-bold">수량</span>
-                                        <button className="bg-red-600 px-3 py-1.5 text-white rounded-lg rounded-r-none">-</button>
-                                        <span className="px-3 py-1.5 border-y-2"> 1 </span>
-                                        <button className="bg-sky-600 px-3 py-1.5 text-white rounded-lg rounded-l-none">+</button>
-                                    </div>
-                                    <div className="flex">
-                                        <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold">장바구니 담기</button>
-                                        <button className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold">결제하기</button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
+                    ?
+                    <Modal>
+                        <DetailView close={toggleDetailView} selectedProduct={selectedProduct} count={count} setCount={setCount}/>
                     </Modal>
                     : <></>
             } 
