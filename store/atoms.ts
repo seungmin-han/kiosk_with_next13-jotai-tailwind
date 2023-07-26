@@ -12,6 +12,24 @@ export const productAtom = atom<Product[]>([
         isBest: true,
         isNewest: true,
         category: '카테고리1',
+        options: [
+            {
+                optionName: '옵션1',
+                options: ['옵션1-1', '옵션1-2', '옵션1-3']
+            },
+            {
+                optionName: '옵션2',
+                options: ['옵션2-1', '옵션2-2', '옵션2-3']
+            },
+            {
+                optionName: '옵션3',
+                options: ['옵션3-1', '옵션3-2', '옵션3-3']
+            },
+            {
+                optionName: '옵션4',
+                options: ['옵션4-1', '옵션4-2', '옵션4-3']
+            }
+        ],
     },
     {
         name: '상품2',
@@ -22,6 +40,20 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: true,
         category: '카테고리2',
+        options: [
+            {
+                optionName: '옵션1',
+                options: ['옵션1-1', '옵션1-2', '옵션1-3']
+            },
+            {
+                optionName: '옵션2',
+                options: ['옵션2-1', '옵션2-2', '옵션2-3']
+            },
+            {
+                optionName: '옵션3',
+                options: ['옵션3-1', '옵션3-2', '옵션3-3']
+            },
+        ],
     },
     {
         name: '상품3',
@@ -32,6 +64,16 @@ export const productAtom = atom<Product[]>([
         isBest: true,
         isNewest: false,
         category: '카테고리3',
+        options: [
+            {
+                optionName: '옵션1',
+                options: ['옵션1-1', '옵션1-2', '옵션1-3']
+            },
+            {
+                optionName: '옵션2',
+                options: ['옵션2-1', '옵션2-2', '옵션2-3']
+            },
+        ],
     },
     {
         name: '상품4',
@@ -42,6 +84,12 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: true,
         category: '카테고리1',
+        options: [
+            {
+                optionName: '옵션1',
+                options: ['옵션1-1', '옵션1-2', '옵션1-3']
+            },
+        ],
     },
     {
         name: '상품5',
@@ -52,6 +100,7 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: false,
         category: '카테고리2',
+        options: [],
     },
     {
         name: '상품6',
@@ -62,6 +111,7 @@ export const productAtom = atom<Product[]>([
         isBest: true,
         isNewest: false,
         category: '카테고리3',
+        options: [],
     },
     {
         name: '상품7',
@@ -72,6 +122,7 @@ export const productAtom = atom<Product[]>([
         isBest: true,
         isNewest: false,
         category: '카테고리1',
+        options: [],
     },
     {
         name: '상품8',
@@ -82,6 +133,7 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: true,
         category: '카테고리2',
+        options: [],
     },
     {
         name: '상품9',
@@ -92,6 +144,7 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: false,
         category: '카테고리3',
+        options: [],
     },
     {
         name: '상품10',
@@ -102,6 +155,7 @@ export const productAtom = atom<Product[]>([
         isBest: true,
         isNewest: false,
         category: '카테고리1',
+        options: [],
     },
     {
         name: '상품11',
@@ -112,5 +166,6 @@ export const productAtom = atom<Product[]>([
         isBest: false,
         isNewest: true,
         category: '카테고리2',
+        options: [],
     },
 ])
