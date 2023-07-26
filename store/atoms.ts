@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { Product } from '@/app/types';
+import { Product } from '@/types';
 
 export const cartAtom = atom<Product[]>([])
 export const productAtom = atom<Product[]>([
