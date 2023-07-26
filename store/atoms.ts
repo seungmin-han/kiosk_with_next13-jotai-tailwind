@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-import { Product } from '@/types';
+import { Product, CartProduct } from '@/types';
 
-export const cartAtom = atom<Product[]>([])
+export const cartAtom = atom<CartProduct[]>([])
 export const productAtom = atom<Product[]>([
     {
         name: '상품1',
@@ -14,18 +14,22 @@ export const productAtom = atom<Product[]>([
         category: '카테고리1',
         options: [
             {
+                optionKey: 'option1',
                 optionName: '옵션1',
-                options: ['옵션1-1', '옵션1-2', '옵션1-3']
+                options: ['옵션1-1', '옵션1-2', '옵션1-3', '옵션1-4']
             },
             {
+                optionKey: 'option2',
                 optionName: '옵션2',
                 options: ['옵션2-1', '옵션2-2', '옵션2-3']
             },
             {
+                optionKey: 'option3',
                 optionName: '옵션3',
                 options: ['옵션3-1', '옵션3-2', '옵션3-3']
             },
             {
+                optionKey: 'option4',
                 optionName: '옵션4',
                 options: ['옵션4-1', '옵션4-2', '옵션4-3']
             }
@@ -42,14 +46,17 @@ export const productAtom = atom<Product[]>([
         category: '카테고리2',
         options: [
             {
+                optionKey: 'option1',
                 optionName: '옵션1',
                 options: ['옵션1-1', '옵션1-2', '옵션1-3']
             },
             {
+                optionKey: 'option2',
                 optionName: '옵션2',
                 options: ['옵션2-1', '옵션2-2', '옵션2-3']
             },
             {
+                optionKey: 'option3',
                 optionName: '옵션3',
                 options: ['옵션3-1', '옵션3-2', '옵션3-3']
             },
@@ -66,10 +73,12 @@ export const productAtom = atom<Product[]>([
         category: '카테고리3',
         options: [
             {
+                optionKey: 'option1',
                 optionName: '옵션1',
                 options: ['옵션1-1', '옵션1-2', '옵션1-3']
             },
             {
+                optionKey: 'option2',
                 optionName: '옵션2',
                 options: ['옵션2-1', '옵션2-2', '옵션2-3']
             },
@@ -86,6 +95,7 @@ export const productAtom = atom<Product[]>([
         category: '카테고리1',
         options: [
             {
+                optionKey: 'option1',
                 optionName: '옵션1',
                 options: ['옵션1-1', '옵션1-2', '옵션1-3']
             },

@@ -14,7 +14,10 @@ export interface Product {
 
 export interface ProductOption {
     optionName: string,
+    optionKey: string,
     options: string[] 
 }
 
-// export interface 
+export interface CartProduct extends Product {
+    selectedOptions: string[]
+}
