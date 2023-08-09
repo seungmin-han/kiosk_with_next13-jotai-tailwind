@@ -1,11 +1,15 @@
 'use client'
-import { Product, ProductOption } from "@/types";
+import { CartProduct, Product, ProductOption } from "@/types";
 import { toast } from 'react-toastify';
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { cartAtom } from "@/store/atoms";
+import { useAtom } from "jotai";
 
 export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
     const [count, setCount] = useState<number>(1);
+    const options = new Map<string, string>();
+    const [cart, setCart] = useAtom<CartProduct[]>(cartAtom);
     const increase = () => {
         setCount((prev: number) => {
             return prev < 100 ? prev + 1 : prev
@@ -20,7 +24,19 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         })
     }
     const addToCart = () => {
-
+        setCart((pre: CartProduct[]) => {
+            let tmp: CartProduct = selectedProduct as CartProduct;
+            tmp.selectedOptions = Object.entries(options).map(v => v.join(':'));
+            pre.push(tmp);
+            return pre;
+        })
+        // setCart(selectedProduct as CartProduct);
+    }
+    const selectOption = (e:ChangeEvent<HTMLInputElement>, optionTitle:string) => {
+        options.set(optionTitle, e.target.value);
+        options.forEach(v => {
+            console.log(v);
+        })
     }
 
     return (
@@ -64,7 +80,7 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                                                 option.options.map((v: string) => {
                                                     return (
                                                         <div key={v}>
-                                                            <input type="radio" name={option.optionKey} id="" value={v} />
+                                                            <input type="radio" name={option.optionKey} id="" value={v} onChange={(e)=>selectOption(e, option.optionName)} />
                                                             <label htmlFor="">{v}</label>
                                                         </div>            
                                                     )
@@ -91,7 +107,7 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                         >+</button>
                     </div>
                     <div className="flex">
-                        <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold">장바구니 담기</button>
+                        <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold" onClick={()=>{addToCart()}}>장바구니 담기</button>
                         <button
                             className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold"
                             onClick={()=> {toast('hello');}}
