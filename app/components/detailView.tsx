@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from "react";
 import { cartAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { useMemo } from "react";
+import { useEffect } from "react";
 
 interface detailOption {
     selectedOption: string;
@@ -70,6 +71,13 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
             return tmp;
         });
     }
+    useEffect(() => {
+        window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                close();
+            }
+        }, {once: true}) 
+    },[])
 
     return (
         <div
