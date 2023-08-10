@@ -96,7 +96,7 @@ export default function Menu() {
                 <div id="bottomNav" className="flex flex-row justify-between">
                     <div className="flex flex-row justify-between self-center flex-grow border-t-2 h-[100px] items-center">
                         <div className="px-8">
-                            총 가격: {cart.reduce((acc, v)=>acc+realPrice(v) * v.count + v.optionPrices.reduce((acc,v)=>acc+v,0),0)}원
+                            총 가격: {cart.reduce((acc, v)=>(acc+realPrice(v) + v.optionPrices.reduce((acc,v)=>acc+v,0))* v.count,0)}원
                         </div>
                         <div className="px-8">
                             총 수량: { cart.reduce((acc, v)=>acc+v.count,0) }
