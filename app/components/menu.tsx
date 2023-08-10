@@ -12,8 +12,8 @@ const screenClassName: String = '';
 
 export default function Menu() {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
-    const [cart, setCart] = useAtom<CartProduct[]>(cartAtom);
-    const [products, _] = useAtom<Product[]>(productAtom);
+    const [cart] = useAtom(cartAtom);
+    const [products] = useAtom(productAtom);
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [copiedProducts, setCopiedProducts] = useState<Product[]>(products.filter((v:Product)=> v.isNewest));
     const [selectedProduct, setSelectedProduct] = useState<Product>();
