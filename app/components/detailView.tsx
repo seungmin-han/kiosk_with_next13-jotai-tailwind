@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { cartAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
+import { useMemo } from "react";
 
 interface detailOption {
     selectedOption: string;
@@ -13,8 +14,12 @@ interface detailOption {
 
 export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
     const [count, setCount] = useState<number>(1);
-    const options = new Map<string, detailOption>();
+    const [options, setOptions] =  useState(new Map<string, detailOption>());
     const [cart, setCart] = useAtom(cartAtom);
+    const realPrice = (v: Product | undefined) => {
+        if (!v) return 0;
+        return v.price * ((100-v.sale)/100);
+    }
     const increase = () => {
         setCount((prev: number) => {
             return prev < 100 ? prev + 1 : prev
@@ -28,6 +33,15 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
             return prev == 1 ? prev : prev - 1
         })
     }
+    const optionPriceSum = useMemo(() => {
+        let sum = 0;
+        options.forEach(v => {
+            if (v.price) {
+                sum += v.price;
+            }
+        })
+        return sum;
+    },[options])
     const addToCart = () => {
         if (options.size !== selectedProduct?.options.length) {
             toast.error('옵션을 모두 체크해주세요.');
@@ -50,7 +64,11 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         close();
     }
     const selectOption = (e:ChangeEvent<HTMLInputElement>, optionTitle:string, price?: number) => {
-        options.set(optionTitle, {selectedOption: e.target.value, price: price});
+        setOptions((prev) => {
+            let tmp = new Map(prev);
+            tmp.set(optionTitle, { selectedOption: e.target.value, price: price });
+            return tmp;
+        });
     }
 
     return (
@@ -113,7 +131,11 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <div className="mb-4 flex justify-end pr-6">
+                    <div className="mb-4 flex justify-between pr-6">
+                        <div className="flex-1 px-3 py-1.5">
+                            총 { (realPrice(selectedProduct) + optionPriceSum) * count }원
+                        </div>
+                        <div className="flex justify-end">
                         <span className="px-3 py-1.5 font-bold">수량</span>
                         <button
                             className="bg-red-600 px-3 py-1.5 text-white rounded-lg rounded-r-none"
@@ -124,6 +146,7 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                             className="bg-sky-600 px-3 py-1.5 text-white rounded-lg rounded-l-none"
                             onClick={()=>increase()}
                         >+</button>
+                        </div>
                     </div>
                     <div className="flex">
                         <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold" onClick={()=>{addToCart()}}>장바구니 담기</button>
