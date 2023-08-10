@@ -14,7 +14,7 @@ interface detailOption {
 }
 
 export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
-    const [count, setCount] = useState<number>(1);
+    const [count, setCount] = useState(1);
     const [options, setOptions] =  useState(new Map<string, detailOption>());
     const [cart, setCart] = useAtom(cartAtom);
     const realPrice = (v: Product | undefined) => {
@@ -22,26 +22,26 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         return v.price * ((100-v.sale)/100);
     }
     const increase = () => {
-        setCount((prev: number) => {
+        setCount((prev) => {
             return prev < 100 ? prev + 1 : prev
         })
     }
     const decrease = () => {
-        setCount((prev: number) => {
+        setCount((prev) => {
             if (prev == 1) {
                 toast.error('1 이하의 숫자는 선택할 수 없습니다.');
             }
             return prev == 1 ? prev : prev - 1
         })
     }
-    const optionPriceSum = useMemo(() => {
-        let sum = 0;
-        options.forEach(v => {
-            if (v.price) {
-                sum += v.price;
-            }
-        })
-        return sum;
+    const optionPrices = useMemo(() => {
+        let priceList: number[] = [];
+            options.forEach(v => {
+                if (v.price) {
+                    priceList.push(v.price);
+                }
+            })
+        return priceList;
     },[options])
     const addToCart = () => {
         if (options.size !== selectedProduct?.options.length) {
@@ -50,15 +50,9 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         }
         setCart((pre) => {
             let item: CartProduct = JSON.parse(JSON.stringify(selectedProduct as CartProduct));
-            item.selectedOptions = Array.from(options.entries()).map(v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `${v[1].price}` : ''}`);
+            item.selectedOptions = Array.from(options.entries()).map(v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `(${v[1].price})` : ''}`);
             item.count = count;
-            item.optionPrices = [];
-            options.forEach(v => {
-                if (v.price) {
-                    console.log(item.optionPrices, v.price);
-                    item.optionPrices.push(v.price);
-                }
-            })
+            item.optionPrices = optionPrices;
             pre.push(item);
             return pre;
         })
@@ -141,7 +135,7 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                 <div className="flex flex-col">
                     <div className="mb-4 flex justify-between pr-6">
                         <div className="flex-1 px-3 py-1.5">
-                            총 { (realPrice(selectedProduct) + optionPriceSum) * count }원
+                            총 { (realPrice(selectedProduct) + optionPrices.reduce((acc,v)=>acc+v,0)) * count }원
                         </div>
                         <div className="flex justify-end">
                         <span className="px-3 py-1.5 font-bold">수량</span>
