@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
     const [count, setCount] = useState<number>(1);
     const options = new Map<string, string>();
-    const [cart, setCart] = useAtom<CartProduct[]>(cartAtom);
+    const [cart, setCart] = useAtom(cartAtom);
     const increase = () => {
         setCount((prev: number) => {
             return prev < 100 ? prev + 1 : prev
@@ -24,13 +24,13 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         })
     }
     const addToCart = () => {
-        setCart((pre: CartProduct[]) => {
+        setCart((pre) => {
             let tmp: CartProduct = selectedProduct as CartProduct;
-            tmp.selectedOptions = Object.entries(options).map(v => v.join(':'));
+            tmp.selectedOptions = Array.from(options.entries()).map(v => v.join(':'));
             pre.push(tmp);
             return pre;
         })
-        // setCart(selectedProduct as CartProduct);
+        close();
     }
     const selectOption = (e:ChangeEvent<HTMLInputElement>, optionTitle:string) => {
         options.set(optionTitle, e.target.value);
