@@ -1,5 +1,5 @@
 'use client'
-import { CartProduct, Product, ProductOption } from "@/types";
+import { CartProduct, Product, ProductDetailOption, ProductOption } from "@/types";
 import { toast } from 'react-toastify';
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
@@ -77,11 +77,11 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                                         <h3 className="pl-4 pb-2 text-lg font-normal">{option.optionName}</h3>
                                         <div className="flex justify-around py-4 border-y-2">
                                             {
-                                                option.options.map((v: string) => {
+                                                option.options.map((v: ProductDetailOption) => {
                                                     return (
-                                                        <div key={v}>
-                                                            <input type="radio" name={option.optionKey} id="" value={v} onChange={(e)=>selectOption(e, option.optionName)} />
-                                                            <label htmlFor="">{v}</label>
+                                                        <div key={v.optionName}>
+                                                            <input type="radio" name={option.optionKey} id="" value={v.optionName} onChange={(e)=>selectOption(e, option.optionName)} />
+                                                            <label htmlFor="">{v.optionName} { v?.price ? `(${v.price})` : '' } </label>
                                                         </div>            
                                                     )
                                                 })    

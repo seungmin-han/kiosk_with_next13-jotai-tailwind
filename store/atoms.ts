@@ -16,22 +16,74 @@ export const productAtom = atom<Product[]>([
 			{
 				optionKey: 'option1',
 				optionName: '옵션1',
-				options: ['옵션1-1', '옵션1-2', '옵션1-3', '옵션1-4'],
+				options: [
+					{
+						optionName: '옵션1-1',
+					},
+					{
+						optionName: '옵션1-2',
+					},
+					{
+						optionName: '옵션1-3',
+					},
+					{
+						optionName: '옵션1-4',
+					},
+				],
 			},
 			{
 				optionKey: 'option2',
 				optionName: '옵션2',
-				options: ['옵션2-1', '옵션2-2', '옵션2-3'],
+				options: [
+					{
+						optionName: '옵션2-1',
+					},
+					{
+						optionName: '옵션2-2',
+					},
+					{
+						optionName: '옵션2-3',
+					},
+				],
 			},
 			{
 				optionKey: 'option3',
 				optionName: '옵션3',
-				options: ['옵션3-1', '옵션3-2', '옵션3-3'],
+				options: [
+					{
+						optionName: '옵션1-1',
+					},
+					{
+						optionName: '옵션1-2',
+					},
+					{
+						optionName: '옵션1-3',
+					},
+					{
+						optionName: '옵션1-4',
+					},
+				],
 			},
 			{
 				optionKey: 'option4',
 				optionName: '옵션4',
-				options: ['옵션4-1', '옵션4-2', '옵션4-3'],
+				options: [
+					{
+						optionName: '옵션1-1',
+					},
+					{
+						optionName: '옵션1-2',
+						price: 500,
+					},
+					{
+						optionName: '옵션1-3',
+						price: 700,
+					},
+					{
+						optionName: '옵션1-4',
+						price: 700,
+					},
+				],
 			},
 		],
 	},
@@ -44,23 +96,7 @@ export const productAtom = atom<Product[]>([
 		isBest: false,
 		isNewest: true,
 		category: '카테고리2',
-		options: [
-			{
-				optionKey: 'option1',
-				optionName: '옵션1',
-				options: ['옵션1-1', '옵션1-2', '옵션1-3'],
-			},
-			{
-				optionKey: 'option2',
-				optionName: '옵션2',
-				options: ['옵션2-1', '옵션2-2', '옵션2-3'],
-			},
-			{
-				optionKey: 'option3',
-				optionName: '옵션3',
-				options: ['옵션3-1', '옵션3-2', '옵션3-3'],
-			},
-		],
+		options: [],
 	},
 	{
 		name: '상품3',
@@ -71,18 +107,7 @@ export const productAtom = atom<Product[]>([
 		isBest: true,
 		isNewest: false,
 		category: '카테고리3',
-		options: [
-			{
-				optionKey: 'option1',
-				optionName: '옵션1',
-				options: ['옵션1-1', '옵션1-2', '옵션1-3'],
-			},
-			{
-				optionKey: 'option2',
-				optionName: '옵션2',
-				options: ['옵션2-1', '옵션2-2', '옵션2-3'],
-			},
-		],
+		options: [],
 	},
 	{
 		name: '상품4',
@@ -93,13 +118,7 @@ export const productAtom = atom<Product[]>([
 		isBest: false,
 		isNewest: true,
 		category: '카테고리1',
-		options: [
-			{
-				optionKey: 'option1',
-				optionName: '옵션1',
-				options: ['옵션1-1', '옵션1-2', '옵션1-3'],
-			},
-		],
+		options: [],
 	},
 	{
 		name: '상품5',

@@ -15,9 +15,15 @@ export interface Product {
 export interface ProductOption {
 	optionName: string;
 	optionKey: string;
-	options: string[];
+	options: ProductDetailOption[];
+}
+
+export interface ProductDetailOption {
+	optionName: string;
+	price?: number;
 }
 
 export interface CartProduct extends Product {
 	selectedOptions: string[];
+	count: number;
 }
