@@ -25,5 +25,6 @@ export interface ProductDetailOption {
 
 export interface CartProduct extends Product {
 	selectedOptions: string[];
+	optionPrices: number[];
 	count: number;
 }

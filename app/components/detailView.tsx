@@ -6,9 +6,14 @@ import { ChangeEvent, useState } from "react";
 import { cartAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 
+interface detailOption {
+    selectedOption: string;
+    price?: number;
+}
+
 export default function DetailView({ close, selectedProduct}: {close:Function, selectedProduct:Product | undefined}) {
     const [count, setCount] = useState<number>(1);
-    const options = new Map<string, string>();
+    const options = new Map<string, detailOption>();
     const [cart, setCart] = useAtom(cartAtom);
     const increase = () => {
         setCount((prev: number) => {
@@ -24,19 +29,28 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         })
     }
     const addToCart = () => {
+        if (options.size !== selectedProduct?.options.length) {
+            toast.error('옵션을 모두 체크해주세요.');
+            return false;
+        }
         setCart((pre) => {
-            let tmp: CartProduct = selectedProduct as CartProduct;
-            tmp.selectedOptions = Array.from(options.entries()).map(v => v.join(':'));
-            pre.push(tmp);
+            let item: CartProduct = JSON.parse(JSON.stringify(selectedProduct as CartProduct));
+            item.selectedOptions = Array.from(options.entries()).map(v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `${v[1].price}` : ''}`);
+            item.count = count;
+            item.optionPrices = [];
+            options.forEach(v => {
+                if (v.price) {
+                    console.log(item.optionPrices, v.price);
+                    item.optionPrices.push(v.price);
+                }
+            })
+            pre.push(item);
             return pre;
         })
         close();
     }
-    const selectOption = (e:ChangeEvent<HTMLInputElement>, optionTitle:string) => {
-        options.set(optionTitle, e.target.value);
-        options.forEach(v => {
-            console.log(v);
-        })
+    const selectOption = (e:ChangeEvent<HTMLInputElement>, optionTitle:string, price?: number) => {
+        options.set(optionTitle, {selectedOption: e.target.value, price: price});
     }
 
     return (
@@ -80,7 +94,12 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                                                 option.options.map((v: ProductDetailOption) => {
                                                     return (
                                                         <div key={v.optionName}>
-                                                            <input type="radio" name={option.optionKey} id="" value={v.optionName} onChange={(e)=>selectOption(e, option.optionName)} />
+                                                            <input
+                                                                type="radio"
+                                                                name={option.optionKey}
+                                                                value={v.optionName}
+                                                                onChange={(e) => selectOption(e, option.optionName, v.price)}
+                                                            />
                                                             <label htmlFor="">{v.optionName} { v?.price ? `(${v.price})` : '' } </label>
                                                         </div>            
                                                     )
