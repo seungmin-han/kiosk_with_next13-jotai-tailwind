@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Modal from "./modal";
 import Image from "next/image";
 import DetailView from '@/app/components/detailView';
+import CartView from "./CartView";
 const screenClassName: String = '';
 
 
@@ -14,14 +15,15 @@ export default function Menu() {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const [cart] = useAtom(cartAtom);
     const [products] = useAtom(productAtom);
-    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
-    const [copiedProducts, setCopiedProducts] = useState<Product[]>(products.filter((v:Product)=> v.isNewest));
+    const [showDetailModal, setShowDetailModal] = useState(false);
+    const [showCartModal, setShowCartModal] = useState(false);
+    const [copiedProducts, setCopiedProducts] = useState(products.filter((v:Product)=> v.isNewest));
     const [selectedProduct, setSelectedProduct] = useState<Product>();
     const CATEGORY: string[] = ['신상품', '인기메뉴', '카테고리1', '카테고리2', '카테고리3'];
     const realPrice = (v: Product) => {
         return v.price * ((100-v.sale)/100);
     }
-
+    
     const toggleDetailView = (product?: Product) => {
         setSelectedProduct(product);
         if (product === undefined) {
@@ -29,7 +31,6 @@ export default function Menu() {
         } else {
             setShowDetailModal(true);
         }
-        
     }
 
     useEffect(() => {
@@ -104,7 +105,7 @@ export default function Menu() {
                         
                     </div>
                     <div className="flex flex-row">
-                        <div className="bg-green-500 w-[100px] h-[100px] px-4 py-3 flex justify-center">
+                        <div className="bg-green-500 w-[100px] h-[100px] px-4 py-3 flex justify-center" onClick={()=>setShowCartModal(true)}>
                             <button className="text-white font-bold">주문<br/>내역</button>
                         </div>
                         <div className="bg-sky-500 w-[100px] h-[100px] px-4 py-3 flex justify-center">
@@ -123,6 +124,15 @@ export default function Menu() {
                     </Modal>
                     : <></>
             } 
+            {
+                showCartModal
+                    ?
+                    <Modal>
+                        <CartView close={() => setShowCartModal(false)}></CartView>
+                    </Modal>
+                    :
+                    <></>
+            }
         </KioskLayout>
     )
 }
