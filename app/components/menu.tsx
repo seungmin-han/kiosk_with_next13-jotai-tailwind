@@ -20,8 +20,9 @@ export default function Menu() {
     const [copiedProducts, setCopiedProducts] = useState(products.filter((v:Product)=> v.isNewest));
     const [selectedProduct, setSelectedProduct] = useState<Product>();
     const CATEGORY: string[] = ['신상품', '인기메뉴', '카테고리1', '카테고리2', '카테고리3'];
-    const realPrice = (v: Product) => {
-        return v.price * ((100-v.sale)/100);
+    const realPrice = (v: Product | CartProduct) => {
+        const total = v.price * ((100 - v.sale) / 100);
+        return ('optionPrices' in v) ? (total + v.optionPrices.reduce((acc,val)=>acc+val,0)) * v.count : total;
     }
     
     const toggleDetailView = (product?: Product) => {
@@ -97,7 +98,7 @@ export default function Menu() {
                 <div id="bottomNav" className="flex flex-row justify-between">
                     <div className="flex flex-row justify-between self-center flex-grow border-t-2 h-[100px] items-center">
                         <div className="px-8">
-                            총 가격: {cart.reduce((acc, v)=>(acc+realPrice(v) + v.optionPrices.reduce((acc,v)=>acc+v,0))* v.count,0)}원
+                            총 가격: {cart.reduce((acc, v)=>acc+realPrice(v), 0)}원
                         </div>
                         <div className="px-8">
                             총 수량: { cart.reduce((acc, v)=>acc+v.count,0) }
