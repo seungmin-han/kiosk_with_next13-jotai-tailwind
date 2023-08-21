@@ -1,13 +1,14 @@
 'use client'
 
 import { cartAtom } from "@/store/atoms";
-import { Product } from "@/types";
+import { CartProduct, Product } from "@/types";
 import { useAtom } from "jotai";
 
 export default function CartView(props: { close: () => void }) {
-    const realPrice = (v: Product) => {
+    const realPrice = (v: Product | CartProduct) => {
         if (!v) return 0;
-        return v.price * ((100-v.sale)/100);
+        const total = v.price * ((100 - v.sale) / 100);
+        return ('optionPrices' in v) ? (total + v.optionPrices.reduce((acc,val)=>acc+val,0)) * v.count : total;
     }
     const [cart, setCart] = useAtom(cartAtom);
     return (
@@ -23,7 +24,7 @@ export default function CartView(props: { close: () => void }) {
                 {
                     cart.map((item, index) => {
                         return (
-                            <div key={index} className="flex flex-row justify-between px-4">
+                            <div key={index} className="flex flex-row justify-between px-4 py-2">
                                 <div>
                                     <div>{item.name}</div>
                                     <div className="pl-4">
