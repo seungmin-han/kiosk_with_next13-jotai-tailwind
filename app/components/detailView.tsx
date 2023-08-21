@@ -50,7 +50,7 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
         }
         setCart((pre) => {
             let item: CartProduct = JSON.parse(JSON.stringify(selectedProduct as CartProduct));
-            item.selectedOptions = Array.from(options.entries()).map(v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `(${v[1].price})` : ''}`);
+            item.selectedOptions = Array.from(options.entries()).map(v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `(+${v[1].price})` : ''}`);
             item.count = count;
             item.optionPrices = optionPrices;
             pre.push(item);
