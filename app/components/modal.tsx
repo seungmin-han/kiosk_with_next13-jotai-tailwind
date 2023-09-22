@@ -1,16 +1,14 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from "react"
-import { createPortal } from "react-dom";
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function Modal({ children }: { children: React.ReactNode }) {
-    const [mounted, setMounted] = useState<boolean>(false);
+	const [mounted, setMounted] = useState<boolean>(false);
 
-    useEffect(() => {
-        setMounted(true); 
-    }, [])
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-    return mounted
-        ? createPortal(<>{children}</>, document.querySelector('#screen') as HTMLSelectElement)
-        : <></>;
+	return mounted ? createPortal(<>{children}</>, document.querySelector('#screen') as HTMLSelectElement) : <></>;
 }
