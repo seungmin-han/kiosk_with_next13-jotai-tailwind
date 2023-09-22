@@ -157,11 +157,11 @@ export default function DetailView({ close, selectedProduct}: {close:Function, s
                         </div>
                     </div>
                     <div className="flex">
-                        <button className="w-1/2 bg-green-500 py-2 px-4 text-white font-bold" onClick={()=>{addToCart()}}>장바구니 담기</button>
-                        <button
+                        <button className="w-full bg-green-500 py-2 px-4 text-white font-bold" onClick={()=>{addToCart()}}>장바구니 담기</button>
+                        {/* <button
                             className="w-1/2 bg-sky-500 py-2 px-4 text-white font-bold"
                             onClick={()=> {toast('hello');}}
-                        >결제하기</button>
+                        >결제하기</button> */}
                     </div>
                 </div>
             </div>
