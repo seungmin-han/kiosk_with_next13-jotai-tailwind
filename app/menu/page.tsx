@@ -8,6 +8,7 @@ import Modal from "@/app/components/modal";
 import Image from "next/image";
 import DetailView from '@/app/components/detailView';
 import CartView from "@/app/components/CartView";
+import ProductList from "../components/ProductList";
 
 const SCREEN_CLASS_NAME: String = '';
 
@@ -66,33 +67,8 @@ export default function Menu() {
                         }
                     </div>
                     <div className="w-full flex flex-wrap self-center items-baseline">
-                    {
-                        copiedProducts.map((v: Product) => {
-                            return <div
-                                className="w-3/12 text-center p-4"
-                                key={v.code}
-                                onClick={()=>toggleDetailView(v)}
-                            >
-                                <div className="flex flex-col items-center">
-                                    <div className="w-[120px] h-[120px] bg-slate-500">
-                                        <Image
-                                            src={`/assets/image${v.code}.jpg`}
-                                            width={120}
-                                            height={120}
-                                            alt={`image${v.code}`}
-                                            loading="eager"
-                                        >
-                                        </Image>
-                                    </div>
-                                    <div>{v.name}</div>
-                                    {
-                                        v.sale ? <div><s>{ v.price }</s></div> : <></>
-                                    }
-                                    <div>{realPrice(v)}</div>
-                                </div>
-                            </div>
-                        })
-                    }    
+                <ProductList toggleDetailView={toggleDetailView} products={copiedProducts} realPrice={realPrice}></ProductList>
+                         
                     </div>
                 </div>
                 <div id="bottomNav" className="flex flex-row justify-between">
