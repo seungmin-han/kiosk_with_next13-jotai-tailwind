@@ -50,7 +50,10 @@ export default function CartView(props: { close: () => void }) {
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <div className="px-4 py-6 text-right">총 가격: { cart.reduce((acc,cur)=>acc+(realPrice(cur)),0) }원</div>
+                    <div className="px-4 py-6 text-right">
+                        수량: { cart.reduce((acc,cur)=>acc+cur.count,0) }개<br />
+                        결제 금액: {cart.reduce((acc, cur) => acc + (realPrice(cur)), 0)}원
+                    </div>
                     <button className="w-full text-center p-6 text-xl font-bold bg-sky-500 text-white">결제하기</button>
                 </div>
             </div>
