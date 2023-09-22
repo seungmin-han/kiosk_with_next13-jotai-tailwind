@@ -8,8 +8,8 @@ import Modal from "./modal";
 import Image from "next/image";
 import DetailView from '@/app/components/detailView';
 import CartView from "./CartView";
-const screenClassName: String = '';
 
+const SCREEN_CLASS_NAME: String = '';
 
 export default function Menu() {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -49,7 +49,7 @@ export default function Menu() {
     }, [selectedIndex, products]);
 
     return (
-        <KioskLayout screenClassName={screenClassName}>
+        <KioskLayout screenClassName={SCREEN_CLASS_NAME}>
             <div className="flex flex-col justify-between h-full">
                 <div className="p-4">                
                     <div id="menu-header" className="flex justify-between items-center h-12">
@@ -98,19 +98,19 @@ export default function Menu() {
                 <div id="bottomNav" className="flex flex-row justify-between">
                     <div className="flex flex-row justify-between self-center flex-grow border-t-2 h-[100px] items-center">
                         <div className="px-8">
-                            총 가격: {cart.reduce((acc, v)=>acc+realPrice(v), 0)}원
+                            결제 금액: {cart.reduce((acc, v)=>acc+realPrice(v), 0)}원
                         </div>
                         <div className="px-8">
-                            총 수량: { cart.reduce((acc, v)=>acc+v.count,0) }
+                            수량: { cart.reduce((acc, v)=>acc+v.count,0) }
                         </div>
                         
                     </div>
                     <div className="flex flex-row">
-                        <div className="bg-green-500 w-[100px] h-[100px] px-4 py-3 flex justify-center" onClick={()=>setShowCartModal(true)}>
-                            <button className="text-white font-bold">주문<br/>내역</button>
+                        <div className="bg-green-500 w-[100px] h-[100px] flex justify-center">
+                            <button onClick={()=>setShowCartModal(true)} className="w-full h-full text-white font-bold">주문<br/>내역</button>
                         </div>
-                        <div className="bg-sky-500 w-[100px] h-[100px] px-4 py-3 flex justify-center">
-                            <button className="text-white font-bold">결제<br/>하기</button>
+                        <div className="bg-sky-500 w-[100px] h-[100px] flex justify-center">
+                            <button onClick={()=>setShowCartModal(true)} className="w-full h-full text-white font-bold">결제<br/>하기</button>
                         </div>
                     </div>
                     
