@@ -50,23 +50,32 @@ export default function DetailView({
 		return priceList;
 	}, [options]);
 	const addToCart = () => {
+		// 선택한 옵션의 수가 선택한 상품의 옵션 개수와 일치하는지 검사하여 일치하지 않을 경우, toast 팝업 노출.
 		if (options.size !== selectedProduct?.options.length) {
 			toast.error('옵션을 모두 체크해주세요.');
 			return false;
 		}
 		setCart(pre => {
 			let tmp = [...pre];
+
+			// 선택한 상품을 깊은 복사하여 선택한 옵션 값을 비교할 수 있도록 문자열로 변환하여 변수로 지정.
 			let item: CartProduct = JSON.parse(JSON.stringify(selectedProduct as CartProduct));
 			item.selectedOptions = Array.from(options.entries()).map(
 				v => `${v[0]}:${v[1].selectedOption}${v[1]?.price ? `(+${v[1].price})` : ''}`
 			);
+
+			// 선택한 옵션을 문자열로 변환한 변수를 기존 카트에서 검색
 			let hasItemIndex = tmp.findIndex(
 				v => JSON.stringify(v.selectedOptions) === JSON.stringify(item.selectedOptions)
 			);
-			if (hasItemIndex !== -1) {
+
+			// 옵션의 개별 번호와 상품 이름이 일치하는지 비교하여 같다면 기존 아이템의 수량 증가
+			if (hasItemIndex !== -1 && item.name == tmp[hasItemIndex].name) {
 				tmp[hasItemIndex].count += count;
 				return tmp;
 			}
+
+			// 기존에 존재 하지 않는 상품일 경우(옵션이 한 개라도 다를 경우) 설정한 수량만큼의 아이템을 카트에 추가
 			item.count = count;
 			item.optionPrices = optionPrices;
 			pre.push(item);
